@@ -1,7 +1,7 @@
 {
-    "name": "syntatis/composer-skeleton",
-    "description": "Skeleton for a Composer package",
-    "keywords": ["skeleton", "package", "starter", "template"],
+    "name": "syntatis/version-cli-php",
+    "description": "Increment, compare SemVer-compliant version number with CLI.",
+    "keywords": ["version", "cli", "semver"],
     "authors": [
         {
             "name": "Thoriq Firdaus"
@@ -10,16 +10,18 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "Syntatis\\Version\\CLI\\": "app/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Syntatis\\Tests\\": "tests/"
         }
     },
     "require": {
-        "php": "^7.4 || ^8.0"
+        "php": "^7.4 || ^8.0",
+        "nikolaposa/version": "^4.1",
+        "symfony/console": "^5.4"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",

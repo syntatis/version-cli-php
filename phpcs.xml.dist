@@ -29,8 +29,8 @@
 	<rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
 		<properties>
 			<property name="rootNamespaces" type="array">
-				<element key="app" value="App"/>
-				<element key="tests/app" value="App\Tests"/>
+				<element key="app" value="Syntatis\Version\CLI"/>
+				<element key="tests/app" value="Syntatis\Tests"/>
 			</property>
 		</properties>
 	</rule>
