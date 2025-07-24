@@ -1,0 +1,59 @@
+{
+    "name": "syntatis/composer-skeleton",
+    "description": "Skeleton for a Composer package",
+    "keywords": ["skeleton", "package", "starter", "template"],
+    "authors": [
+        {
+            "name": "Thoriq Firdaus"
+        }
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.4 || ^8.0"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "nunomaduro/collision": "^5.11",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^9.6",
+        "shipmonk/phpstan-rules": "^4.1",
+        "squizlabs/php_codesniffer": "^3.0",
+        "symfony/var-dumper": "^5.4",
+        "syntatis/coding-standard": "^2.0"
+    },
+    "suggest": {
+        "nunomaduro/collision": "Provide better error rendering in the console",
+        "symfony/var-dumper": "Provide better debugging output"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "analyze": "phpstan",
+        "format": "phpcbf",
+        "sniff": "phpcs",
+        "test": "phpunit"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}

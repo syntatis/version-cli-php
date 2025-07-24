@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/ci.yml"
+      - "**.php"
+      - "composer.json"
+      - "composer.lock"
+      - "phpcs.xml.dist"
+      - "phpstan.neon.dist"
+      - "phpunit.xml.dist"
+    types: [ready_for_review, synchronize, opened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  sniff:
+    runs-on: ubuntu-latest
+    name: Sniff
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Analyze source code
+        run: composer sniff
+
+  analyze:
+    runs-on: ubuntu-latest
+    name: Analyze
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Analyze source code
+        run: composer analyze
+
+  test:
+    needs: [sniff, analyze]
+    runs-on: ubuntu-latest
+    name: Test
+
+    strategy:
+      fail-fast: true
+      max-parallel: 2
+      matrix:
+        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP for dependencies
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Setup PHP for test
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+
+      - name: Run test
+        run: composer test

@@ -1,0 +1,12 @@
+{
+	"recommendations": [
+		"bmewburn.vscode-intelephense-client",
+		"christian-kohler.path-intellisense",
+		"dotjoshjohnson.xml",
+		"editorconfig.editorconfig",
+		"mikestead.dotenv",
+		"neilbrayfield.php-docblocker",
+		"sanderronde.phpstan-vscode",
+		"valeryanm.vscode-phpsab",
+	]
+}

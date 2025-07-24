@@ -1,0 +1,34 @@
+# OS generated files #
+######################
+.DS_Store
+Thumbs.db
+
+# Logs and databases #
+######################
+*.sql
+*.log
+
+# Caches #
+##########
+*.cache
+
+# Compiled source #
+###################
+*.tar*
+*.zip
+dist*
+build*
+@*
+
+# Dependencies #
+################
+vendor*
+composer.lock
+
+# Temporary files #
+###################
+tmp
+
+# Environment files #
+######################
+.env
