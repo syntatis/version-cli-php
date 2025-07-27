@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+use Symfony\Component\Console\Application;
+use Syntatis\Version\CLI\Commander;
+
+$autoloadFile = dirname(__DIR__, 4) . '/vendor/autoload.php';
+
+if (file_exists($autoloadFile)) {
+    require_once $autoloadFile;
+} else {
+	require_once dirname(__DIR__) . '/vendor/autoload.php';
+}
+
+$app = new Commander();
+$app->run();
