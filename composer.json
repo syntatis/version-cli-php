@@ -1,6 +1,6 @@
 {
-    "name": "syntatis/version-cli-php",
-    "description": "Increment, compare SemVer-compliant version number with CLI.",
+    "name": "syntatis/version-cli",
+    "description": "Validate, increment, and compare SemVer-compliant version number with CLI",
     "keywords": ["version", "cli", "semver"],
     "authors": [
         {
@@ -20,8 +20,8 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "nikolaposa/version": "^4.1",
-        "symfony/console": "^5.4"
+        "nikolaposa/version": "^4.1.1",
+        "symfony/console": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",

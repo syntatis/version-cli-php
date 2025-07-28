@@ -20,7 +20,6 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-
   sniff:
     runs-on: ubuntu-latest
     name: Sniff
@@ -66,26 +65,21 @@ jobs:
 
     strategy:
       fail-fast: true
-      max-parallel: 2
+      max-parallel: 3
       matrix:
-        php: ['7.4', '8.0', '8.1', '8.2', '8.3', '8.4']
+        php: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup PHP for dependencies
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-
-      - name: Install PHP dependencies
-        uses: ramsey/composer-install@v3
-
       - name: Setup PHP for test
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
 
       - name: Run test
         run: composer test
