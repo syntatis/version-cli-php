@@ -38,3 +38,4 @@ tmp
 phpcs.xml
 phpstan.xml
 phpunit.xml
+*.override.xml
