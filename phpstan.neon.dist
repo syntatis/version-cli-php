@@ -2,5 +2,8 @@ parameters:
   level: 10
   paths:
     - app
-    - inc
     - tests/app
+  ignoreErrors:
+      -
+        identifier: missingType.iterableValue
+        path: tests/*

@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Syntatis\Version\CLI;
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Syntatis\Version\CLI\Commands\ValidateCommand;
+
+final class Commander extends Application
+{
+	public const VERSION = '0.1.0-alpha.0';
+
+	public function __construct()
+	{
+		parent::__construct('Ver', self::VERSION);
+
+		$this->addCommands($this->getCommands());
+	}
+
+	/**
+	 * @return array<Command>
+	 * @phpstan-return list<Command>
+	 */
+	private function getCommands(): array
+	{
+		return [
+			new ValidateCommand(),
+		];
+	}
+}

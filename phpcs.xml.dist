@@ -15,7 +15,6 @@
 
 	<!-- The directories to apply the rules -->
 	<file>./app/</file>
-	<file>./inc/</file>
 
 	<!-- Show the warning but exit with 0. The Warning is fine -->
 	<config name="ignore_warnings_on_exit" value="1"/>
