@@ -29,7 +29,7 @@
 		<properties>
 			<property name="rootNamespaces" type="array">
 				<element key="app" value="Syntatis\Version\CLI"/>
-				<element key="tests/app" value="Syntatis\Tests"/>
+				<element key="tests/phpunit" value="Syntatis\Tests"/>
 			</property>
 		</properties>
 	</rule>
