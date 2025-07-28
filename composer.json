@@ -1,6 +1,6 @@
 {
     "name": "syntatis/version-cli",
-    "description": "Validate, increment, compare, etc. SemVer-compliant version number with CLI",
+    "description": "Validate, increment, and compare SemVer-compliant version number with CLI",
     "keywords": ["version", "cli", "semver"],
     "authors": [
         {
