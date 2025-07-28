@@ -27,16 +27,30 @@ final class IncrementCommand extends Command
 		$this->setName('increment');
 		$this->setDescription('Increment a version.');
 		$this->setHelp('This command increments the provided version by the specified part (major, minor, patch).');
-		$this->setAliases(['incr']);
-		$this->addArgument('part', InputArgument::REQUIRED, 'Part to increment (major, minor, patch)');
+		$this->setAliases(['incr', 'bump']);
 		$this->addArgument('version', InputArgument::REQUIRED, 'Version to increment');
+		$this->addOption('part', 'p', InputArgument::OPTIONAL, 'Part to increment (major, minor, patch)', 'patch');
+		$this->addOption('build', 'b', InputArgument::OPTIONAL, 'Build metadata to append to the version');
+		$this->addOption('pre', null, InputArgument::OPTIONAL, 'Pre-release identifier to append to the version');
+		$this->setHelp(<<<'HELP'
+			This command increments the provided version by the specified part (major, minor, patch).
+			You can also append build metadata or a pre-release identifier to the version.
+
+			Usage:
+			<info>version increment 1.0.0</info>
+			<info>version increment 1.0.0 --part=minor</info>
+			<info>version increment 1.0.0 --build=123</info>
+			<info>version increment 1.0.0 --pre=beta</info>
+			HELP,);
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$style = new SymfonyStyle($input, $output);
-		$part = $input->getArgument('part');
+		$part = $input->getOption('part');
 		$version = $input->getArgument('version');
+		$build = $input->getOption('build');
+		$pre = $input->getOption('pre');
 
 		try {
 			if (! is_string($part)) {
@@ -55,11 +69,12 @@ final class IncrementCommand extends Command
 
 			/** @var Version $parsed */
 			$parsed = Version::fromString($version);
-
 			$style->writeln(
 				(string) $this->increment(
 					$parsed,
 					$part,
+					$pre,
+					$build,
 				),
 			);
 		} catch (Throwable $th) {
@@ -71,20 +86,37 @@ final class IncrementCommand extends Command
 		return Command::SUCCESS;
 	}
 
-	private function increment(Version $version, string $part): Version
+	/**
+	 * @param mixed $pre
+	 * @param mixed $build
+	 */
+	private function increment(Version $version, string $part, $pre = null, $build = null): Version
 	{
 		switch ($part) {
 			case 'major':
-				return $version->incrementMajor();
+				$version = $version->incrementMajor();
+				break;
 
 			case 'minor':
-				return $version->incrementMinor();
+				$version = $version->incrementMinor();
+				break;
 
 			case 'patch':
-				return $version->incrementPatch();
+				$version = $version->incrementPatch();
+				break;
 
 			default:
 				throw new InvalidArgumentException(sprintf("Invalid part '%s' provided. Expected 'major', 'minor', or 'patch'.", $part));
 		}
+
+		if (is_string($pre) && $pre !== '') {
+			$version = $version->withPreRelease($pre);
+		}
+
+		if (is_string($build) && $build !== '') {
+			$version = $version->withBuild($build);
+		}
+
+		return $version;
 	}
 }
