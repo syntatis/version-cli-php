@@ -12,7 +12,7 @@ use Syntatis\Version\CLI\Commands\ValidateCommand;
 
 final class Commander extends Application
 {
-	public const VERSION = '0.1.0-alpha.0';
+	public const VERSION = '0.1.0';
 
 	public function __construct()
 	{
