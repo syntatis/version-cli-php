@@ -25,9 +25,8 @@ final class IncrementCommand extends Command
 	protected function configure(): void
 	{
 		$this->setName('increment');
-		$this->setDescription('Increment a version.');
-		$this->setHelp('This command increments the provided version by the specified part (major, minor, patch).');
-		$this->setAliases(['incr', 'bump']);
+		$this->setDescription('Increment a version');
+		$this->setAliases(['incr']);
 		$this->addArgument('version', InputArgument::REQUIRED, 'Version to increment');
 		$this->addOption('part', 'p', InputArgument::OPTIONAL, 'Part to increment (major, minor, patch)', 'patch');
 		$this->addOption('build', 'b', InputArgument::OPTIONAL, 'Build metadata to append to the version');

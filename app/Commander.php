@@ -6,6 +6,7 @@ namespace Syntatis\Version\CLI;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
+use Syntatis\Version\CLI\Commands\GreaterThanCommand;
 use Syntatis\Version\CLI\Commands\IncrementCommand;
 use Syntatis\Version\CLI\Commands\ValidateCommand;
 
@@ -15,7 +16,7 @@ final class Commander extends Application
 
 	public function __construct()
 	{
-		parent::__construct('Ver', self::VERSION);
+		parent::__construct('Version', self::VERSION);
 
 		$this->addCommands($this->getCommands());
 	}
@@ -29,6 +30,7 @@ final class Commander extends Application
 		return [
 			new IncrementCommand(),
 			new ValidateCommand(),
+			new GreaterThanCommand(),
 		];
 	}
 }
