@@ -13,35 +13,35 @@ use function sprintf;
 class ValidateCommandTest extends TestCase
 {
 	private Commander $commander;
+	private CommandTester $tester;
 
 	public function setUp(): void
 	{
 		parent::setUp();
 
 		$this->commander = new Commander();
+		$this->tester = new CommandTester($this->commander->get('validate'));
 	}
 
 	/** @dataProvider dataInvalidVersionArgument */
 	public function testInvalidVersionArgument(string $version): void
 	{
-		$tester = new CommandTester($this->commander->get('validate'));
-		$tester->execute(['version' => $version]);
+		$this->tester->execute(['version' => $version]);
 
 		self::assertStringContainsString(
 			sprintf("[ERROR] Version string '%s' is not valid and cannot be parsed", $version),
-			$tester->getDisplay(),
+			$this->tester->getDisplay(),
 		);
 	}
 
 	/** @dataProvider dataValidVersionArgument */
 	public function testValidVersionArgument(string $version): void
 	{
-		$tester = new CommandTester($this->commander->get('validate'));
-		$tester->execute(['version' => $version]);
+		$this->tester->execute(['version' => $version]);
 
 		self::assertStringContainsString(
 			sprintf("[OK] Version string '%s' is valid and can be parsed", $version),
-			$tester->getDisplay(),
+			$this->tester->getDisplay(),
 		);
 	}
 
