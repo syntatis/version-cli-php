@@ -12,6 +12,9 @@
 			"name": "Thoriq Firdaus"
 		}
 	],
+    "bin": [
+        "bin/version"
+    ],
 	"license": "MIT",
 	"autoload": {
 		"psr-4": {
