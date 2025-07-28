@@ -6,6 +6,7 @@ namespace Syntatis\Version\CLI;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
+use Syntatis\Version\CLI\Commands\IncrementCommand;
 use Syntatis\Version\CLI\Commands\ValidateCommand;
 
 final class Commander extends Application
@@ -26,6 +27,7 @@ final class Commander extends Application
 	private function getCommands(): array
 	{
 		return [
+			new IncrementCommand(),
 			new ValidateCommand(),
 		];
 	}

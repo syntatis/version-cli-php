@@ -9,11 +9,10 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Syntatis\Version\CLI\Concerns\InvalidArgumentType;
 use Throwable;
-use TypeError;
 use Version\Version;
 
-use function gettype;
 use function is_string;
 use function sprintf;
 
@@ -39,12 +38,13 @@ final class ValidateCommand extends Command
 		try {
 			if (is_string($version)) {
 				Version::fromString($version);
+
 				$style->success(sprintf("Version string '%s' is valid and can be parsed", $version));
 
 				return Command::SUCCESS;
 			}
 
-			throw new TypeError(sprintf("Invalid type of value to validate. Expected string, '%s' given", gettype($version)));
+			throw new InvalidArgumentType($version);
 		} catch (Throwable $th) {
 			$style->error($th->getMessage());
 
