@@ -20,8 +20,8 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
-        "nikolaposa/version": "^4.1",
-        "symfony/console": "^5.4"
+        "nikolaposa/version": "^4.1.1",
+        "symfony/console": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
