@@ -24,7 +24,7 @@ final class ValidateCommand extends Command
 	protected function configure(): void
 	{
 		$this->setName('validate');
-		$this->setDescription('Validate a version.');
+		$this->setDescription('Validate a version');
 		$this->setHelp('This command checks if the provided value is a valid Semantic Version (SemVer) version format.');
 		$this->setAliases(['val']);
 		$this->addArgument('version', InputArgument::REQUIRED, 'Version to validate');

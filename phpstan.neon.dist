@@ -2,7 +2,7 @@ parameters:
   level: 10
   paths:
     - app
-    - tests/app
+    - tests/phpunit
   ignoreErrors:
       -
         identifier: missingType.iterableValue

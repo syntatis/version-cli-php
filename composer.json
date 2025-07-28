@@ -1,7 +1,11 @@
 {
     "name": "syntatis/version-cli",
     "description": "Validate, increment, and compare SemVer-compliant version number with CLI",
-    "keywords": ["version", "cli", "semver"],
+    "keywords": [
+        "version",
+        "cli",
+        "semver"
+    ],
     "authors": [
         {
             "name": "Thoriq Firdaus"
@@ -57,5 +61,8 @@
         },
         "preferred-install": "dist",
         "sort-packages": true
-    }
+    },
+    "non-feature-branches": [
+        "dependabot/*"
+    ]
 }
