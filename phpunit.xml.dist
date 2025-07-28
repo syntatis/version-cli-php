@@ -11,8 +11,8 @@
 	printerClass="NunoMaduro\Collision\Adapters\Phpunit\Printer"
 	>
 	<testsuites>
-		<testsuite name="app">
-			<directory suffix="Test.php">tests/app/</directory>
+		<testsuite name="phpunit">
+			<directory suffix="Test.php">tests/phpunit/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
