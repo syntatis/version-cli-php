@@ -19,7 +19,7 @@ class ValidateCommandTest extends TestCase
 		$tester = new CommandTester($command->get('validate'));
 		$tester->execute(['version' => $version]);
 
-		$this->assertStringContainsString(
+		self::assertStringContainsString(
 			sprintf("[ERROR] Version string '%s' is not valid and cannot be parsed", $version),
 			$tester->getDisplay(),
 		);
@@ -32,7 +32,7 @@ class ValidateCommandTest extends TestCase
 		$tester = new CommandTester($command->get('validate'));
 		$tester->execute(['version' => $version]);
 
-		$this->assertStringContainsString(
+		self::assertStringContainsString(
 			sprintf("[OK] Version string '%s' is valid and can be parsed", $version),
 			$tester->getDisplay(),
 		);

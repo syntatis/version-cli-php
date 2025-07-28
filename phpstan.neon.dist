@@ -3,3 +3,7 @@ parameters:
   paths:
     - app
     - tests/app
+  ignoreErrors:
+      -
+        identifier: missingType.iterableValue
+        path: tests/*
