@@ -13,23 +13,24 @@ use function sprintf;
 class GreaterThanCommandTest extends TestCase
 {
 	private Commander $commander;
+	private CommandTester $tester;
 
 	public function setUp(): void
 	{
 		parent::setUp();
 
 		$this->commander = new Commander();
+		$this->tester = new CommandTester($this->commander->get('gt'));
 	}
 
 	/** @dataProvider dataComparison */
 	public function testComparison(string $versionA, string $versionB, string $expect): void
 	{
-		$tester = new CommandTester($this->commander->get('gt'));
-		$tester->execute(['version-a' => $versionA, 'version-b' => $versionB]);
+		$this->tester->execute(['version-a' => $versionA, 'version-b' => $versionB]);
 
 		self::assertStringContainsString(
 			$expect,
-			$tester->getDisplay(),
+			$this->tester->getDisplay(),
 		);
 	}
 
