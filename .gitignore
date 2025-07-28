@@ -32,3 +32,9 @@ tmp
 # Environment files #
 ######################
 .env
+
+# Private Configs #
+######################
+phpcs.xml
+phpstan.xml
+phpunit.xml
