@@ -12,11 +12,19 @@ use function sprintf;
 
 class ValidateCommandTest extends TestCase
 {
+	private Commander $commander;
+
+	public function setUp(): void
+	{
+		parent::setUp();
+
+		$this->commander = new Commander();
+	}
+
 	/** @dataProvider dataInvalidVersionArgument */
 	public function testInvalidVersionArgument(string $version): void
 	{
-		$command = new Commander();
-		$tester = new CommandTester($command->get('validate'));
+		$tester = new CommandTester($this->commander->get('validate'));
 		$tester->execute(['version' => $version]);
 
 		self::assertStringContainsString(
@@ -28,8 +36,7 @@ class ValidateCommandTest extends TestCase
 	/** @dataProvider dataValidVersionArgument */
 	public function testValidVersionArgument(string $version): void
 	{
-		$command = new Commander();
-		$tester = new CommandTester($command->get('validate'));
+		$tester = new CommandTester($this->commander->get('validate'));
 		$tester->execute(['version' => $version]);
 
 		self::assertStringContainsString(
