@@ -47,6 +47,8 @@ class ValidateCommandTest extends TestCase
 
 	public static function dataInvalidVersionArgument(): iterable
 	{
+		yield ['0'];
+		yield ['0.0'];
 		yield ['v'];
 		yield ['v0'];
 		yield ['v0.0'];
