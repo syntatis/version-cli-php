@@ -15,23 +15,23 @@ use Version\Version;
 
 use function sprintf;
 
-final class GreaterThanCommand extends Command
+final class LessThanCommand extends Command
 {
 	/**
 	 * Configure the command options and arguments.
 	 */
 	protected function configure(): void
 	{
-		$this->setName('gt');
-		$this->setDescription('Compare if a version is greater than another');
+		$this->setName('lt');
+		$this->setDescription('Compare if a version is less than another');
 		$this->addArgument('version-a', InputArgument::REQUIRED, 'First version to compare');
 		$this->addArgument('version-b', InputArgument::REQUIRED, 'Second version to compare against the first');
 		$this->setHelp(<<<'HELP'
-			This command compares two versions and checks if the first version is greater than the second.
+			This command compares two versions and checks if the first version is less than the second.
 
 			Usage:
-			<info>version gt 1.0.0 0.9.0</info>
-			<info>version gt 2.1.0 2.1.0</info>
+			<info>version lt 0.9.0 1.0.0</info>
+			<info>version lt 2.1.0 2.1.0</info>
 			HELP);
 	}
 
@@ -50,13 +50,13 @@ final class GreaterThanCommand extends Command
 			/** @var Version $b */
 			$b = Version::fromString($versionB);
 
-			if ($a->isGreaterThan($b)) {
-				$style->success(sprintf("Version '%s' is greater than '%s'.", $a, $b));
+			if ($a->isLessThan($b)) {
+				$style->success(sprintf("Version '%s' is less than '%s'.", $a, $b));
 
 				return Command::SUCCESS;
 			}
 
-			$style->error(sprintf("Version '%s' is not greater than '%s'.", $a, $b));
+			$style->error(sprintf("Version '%s' is not less than '%s'.", $a, $b));
 
 			return Command::FAILURE;
 		} catch (Throwable $th) {

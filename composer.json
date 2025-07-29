@@ -28,6 +28,7 @@
 	},
 	"require": {
 		"php": "^7.4 || ^8.0",
+		"beberlei/assert": "^3.3",
 		"nikolaposa/version": "^4.1.1",
 		"symfony/console": "^5.4 || ^6.0 || ^7.0"
 	},
@@ -37,6 +38,7 @@
 		"phpcompatibility/php-compatibility": "^9.3",
 		"phpstan/extension-installer": "^1.4",
 		"phpstan/phpstan": "^2.1",
+		"phpstan/phpstan-beberlei-assert": "^2.0",
 		"phpstan/phpstan-deprecation-rules": "^2.0",
 		"phpstan/phpstan-phpunit": "^2.0",
 		"phpstan/phpstan-strict-rules": "^2.0",
