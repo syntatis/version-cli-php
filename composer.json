@@ -57,7 +57,7 @@
 	"scripts": {
 		"analyze": "phpstan",
 		"format": "phpcbf",
-		"sniff": "phpcs",
+		"lint": "phpcs",
 		"test": "phpunit"
 	},
 	"config": {
