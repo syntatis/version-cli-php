@@ -22,7 +22,7 @@ concurrency:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: lint
+    name: Lint
 
     steps:
       - name: Checkout code
