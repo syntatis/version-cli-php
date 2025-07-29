@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Syntatis\Version\CLI\Commands;
 
+use Assert\Assertion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Syntatis\Version\CLI\Exceptions\InvalidArgumentType;
 use Throwable;
 use Version\Version;
 
-use function is_string;
 use function sprintf;
 
 final class LessThanCommand extends Command
@@ -43,13 +42,11 @@ final class LessThanCommand extends Command
 		$versionB = $input->getArgument('version-b');
 
 		try {
-			if (! is_string($versionA) || ! is_string($versionB)) {
-				throw new InvalidArgumentType($versionA, $versionB);
-			}
+			Assertion::string($versionA);
+			Assertion::string($versionB);
 
 			/** @var Version $a */
 			$a = Version::fromString($versionA);
-
 			/** @var Version $b */
 			$b = Version::fromString($versionB);
 
