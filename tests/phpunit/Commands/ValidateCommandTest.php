@@ -55,6 +55,7 @@ class ValidateCommandTest extends TestCase
 	public static function dataValidVersionArgument(): iterable
 	{
 		yield ['1.0.0'];
+		yield ['v1.0.0'];
 		yield ['2.1.7-alpha'];
 		yield ['1.0.0-beta.1'];
 		yield ['3.4.5+build.78'];
