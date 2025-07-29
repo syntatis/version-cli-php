@@ -6,6 +6,7 @@ namespace Syntatis\Version\CLI;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
+use Syntatis\Version\CLI\Commands\EqualCommand;
 use Syntatis\Version\CLI\Commands\GreaterThanCommand;
 use Syntatis\Version\CLI\Commands\IncrementCommand;
 use Syntatis\Version\CLI\Commands\LessThanCommand;
@@ -29,10 +30,11 @@ final class Commander extends Application
 	private function getCommands(): array
 	{
 		return [
-			new IncrementCommand(),
-			new ValidateCommand(),
+			new EqualCommand(),
 			new GreaterThanCommand(),
+			new IncrementCommand(),
 			new LessThanCommand(),
+			new ValidateCommand(),
 		];
 	}
 }
