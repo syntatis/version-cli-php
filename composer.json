@@ -1,7 +1,7 @@
 {
 
 	"name": "syntatis/version-cli",
-	"description": "Validate, increment, and compare SemVer-compliant version number with CLI",
+	"description": "A simple PHP CLI tool for working with SemVer version strings",
 	"keywords": [
 		"version",
 		"cli",
