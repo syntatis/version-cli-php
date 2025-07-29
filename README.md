@@ -13,18 +13,18 @@ A simple PHP CLI tool for working with [SemVer](https://semver.org/) version str
 * PHP 7.4 or higher
 * Composer
 
-## 📦 Installation
+## Installation
 
 You can install it globally or locally using Composer:
 
 ```bash
-composer global require syntatis/version-cli-php
+composer global require syntatis/version-cli
 ```
 
 Or, use as a development dependency in your project:
 
 ```bash
-composer require --dev syntatis/version-cli-php
+composer require --dev syntatis/version-cli
 ```
 
 ## Usage
