@@ -58,10 +58,10 @@ jobs:
       - name: Analyze source code
         run: composer analyze
 
-  test-phpunit:
+  test:
     needs: [lint, analyze]
     runs-on: ubuntu-latest
-    name: Test (phpunit)
+    name: Test
 
     strategy:
       fail-fast: true
@@ -83,23 +83,15 @@ jobs:
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
 
-      - name: Run test
-        run: composer test
-
-  test-bashunit:
-    needs: [test-phpunit]
-    runs-on: ubuntu-latest
-    name: Test (bashunit)
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Install bashunit
         run: |
           curl -s https://bashunit.typeddevs.com/install.sh > install.sh
           chmod +x install.sh
           ./install.sh
 
-      - name: Run test
+      - name: Run PHPUnit test
+        run: composer test
+
+      - name: Run bashunit tests
+        if: matrix.machine != 'windows-latest'
         run: ./lib/bashunit ./tests/bashunit/*.sh
