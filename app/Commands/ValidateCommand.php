@@ -24,9 +24,15 @@ final class ValidateCommand extends Command
 	{
 		$this->setName('validate');
 		$this->setDescription('Validate a version');
-		$this->setHelp('This command checks if the provided value is a valid Semantic Version (SemVer) version format.');
 		$this->setAliases(['val']);
 		$this->addArgument('version', InputArgument::REQUIRED, 'Version to validate');
+		$this->setHelp(<<<'HELP'
+			This command validates a version whether it is a valid Semantic Versioning (Semver)  string.
+
+			Usage:
+			<info>version validate 1.0.0</info>
+			<info>version validate v1.0.0</info>
+			HELP);
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output): int

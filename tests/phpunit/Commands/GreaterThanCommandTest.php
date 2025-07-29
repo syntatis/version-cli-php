@@ -38,6 +38,7 @@ class GreaterThanCommandTest extends TestCase
 	{
 		yield ['1.0.0', '2.0.0', sprintf("[ERROR] Version '%s' is not greater than '%s'.", '1.0.0', '2.0.0')];
 		yield ['2.0.0', '1.0.0', sprintf("[OK] Version '%s' is greater than '%s'.", '2.0.0', '1.0.0')];
+		yield ['v2.0.0', 'v1.0.0', sprintf("[OK] Version '%s' is greater than '%s'.", 'v2.0.0', 'v1.0.0')];
 		yield ['1.0.0', '1.0.0', sprintf("[ERROR] Version '%s' is not greater than '%s'.", '1.0.0', '1.0.0')];
 		yield ['1.0.0-alpha.1', '1.0.0-alpha.2', sprintf("[ERROR] Version '%s' is not greater than '%s'.", '1.0.0-alpha.1', '1.0.0-alpha.2')];
 		yield ['1.0.0-alpha.2', '1.0.0-alpha.1', sprintf("[OK] Version '%s' is greater than '%s'.", '1.0.0-alpha.2', '1.0.0-alpha.1')];
