@@ -58,10 +58,10 @@ jobs:
       - name: Analyze source code
         run: composer analyze
 
-  test:
+  test-phpunit:
     needs: [sniff, analyze]
     runs-on: ubuntu-latest
-    name: Test
+    name: Test (phpunit)
 
     strategy:
       fail-fast: true
@@ -85,3 +85,21 @@ jobs:
 
       - name: Run test
         run: composer test
+
+  test-bashunit:
+    needs: [test-phpunit]
+    runs-on: ubuntu-latest
+    name: Test (bashunit)
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install bashunit
+        run: |
+          curl -s https://bashunit.typeddevs.com/install.sh > install.sh
+          chmod +x install.sh
+          ./install.sh
+
+      - name: Run test
+        run: ./lib/bashunit ./tests/bashunit/*.sh
