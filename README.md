@@ -2,22 +2,14 @@
 
 [![CI](https://github.com/syntatis/version-cli-php/actions/workflows/ci.yml/badge.svg)](https://github.com/syntatis/version-cli-php/actions/workflows/ci.yml)
 
-A simple PHP CLI tool for working with [SemVer](https://semver.org/) version strings.
+This is a simple command-line tool built with PHP that helps you work with [SemVer (Semantic Versioning)](https://semver.org/) strings. You can use it to check if a version string is valid, compare two versions to see which one is greater, or increase a version by major, minor, or patch levels.
 
-## Features
-
-* Increment version by major, minor, or patch
-* Compare two version strings
-* Validates SemVer-compliant version strings
-
-## Usage
-
-### Requirements
+## Requirements
 
 * PHP 7.4 or higher
 * Composer
 
-### Installation
+## Installation
 
 You can install it globally or locally using Composer:
 
@@ -31,7 +23,7 @@ Or, use as a development dependency in your project:
 composer require --dev syntatis/version-cli
 ```
 
-### Commands
+## Usage
 
 If you run it globally, you can use the `version` command directly in your terminal:
 
