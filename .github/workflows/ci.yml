@@ -70,7 +70,7 @@ jobs:
         run: composer analyze
 
   test:
-    needs: [lint, analyze]
+    needs: [typo, lint, analyze]
     runs-on: ubuntu-latest
     name: Test
 
