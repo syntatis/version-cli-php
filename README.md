@@ -10,7 +10,7 @@ A simple PHP CLI tool for working with [SemVer](https://semver.org/) version str
 * Compare two version strings
 * Validates SemVer-compliant version strings
 
-## Getting Started
+## Usage
 
 ### Requirements
 
@@ -31,7 +31,7 @@ Or, use as a development dependency in your project:
 composer require --dev syntatis/version-cli
 ```
 
-## Commands
+### Commands
 
 If you run it globally, you can use the `version` command directly in your terminal:
 
