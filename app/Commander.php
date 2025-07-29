@@ -8,6 +8,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Syntatis\Version\CLI\Commands\GreaterThanCommand;
 use Syntatis\Version\CLI\Commands\IncrementCommand;
+use Syntatis\Version\CLI\Commands\LessThanCommand;
 use Syntatis\Version\CLI\Commands\ValidateCommand;
 
 final class Commander extends Application
@@ -31,6 +32,7 @@ final class Commander extends Application
 			new IncrementCommand(),
 			new ValidateCommand(),
 			new GreaterThanCommand(),
+			new LessThanCommand(),
 		];
 	}
 }
