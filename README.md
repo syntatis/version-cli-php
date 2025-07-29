@@ -57,12 +57,22 @@ The command provides several options to work with version strings:
         <tr>
             <td><code>validate</code></td>
             <td>Validates the given version string against the SemVer specification.</td>
-			<td><code>version validate v1.0.0</code></td>
+			<td><code>version&nbsp;validate&nbsp;v1.0.0</code></td>
         </tr>
+        <tr>
+            <td><code>increment</code></td>
+            <td>Increments the version string by major, minor, or patch.</td>
+			<td><code>version&nbsp;increment&nbsp;v1.0.0</code></td>
+        </tr>
+        <tr>
+            <td><code>gt</code></td>
+            <td>Compares two version strings to see if the first is greater than the second.</td>
+			<td><code>version&nbsp;gt&nbsp;v1.0.0&nbspv0.9.0</code></td>
+		</tr>
 	</tbody>
 </table>
 
-For more details on each command, run:
+For more details on each command,you can run:
 
 ```bash
 version list
