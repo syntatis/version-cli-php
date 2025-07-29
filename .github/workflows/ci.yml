@@ -92,6 +92,6 @@ jobs:
       - name: Run PHPUnit test
         run: composer test
 
-      - name: Run bashunit tests
+      - name: Run bashunit test
         if: matrix.machine != 'windows-latest'
         run: ./lib/bashunit ./tests/bashunit/*.sh
