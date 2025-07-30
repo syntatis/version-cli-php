@@ -19,10 +19,13 @@ concurrency:
 
 jobs:
   ci:
+    name: CI
+    if: ${{ github.ref_name == 'main' }}
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
   update-version:
+    needs: ci
     runs-on: ubuntu-latest
     name: Update Version
 
