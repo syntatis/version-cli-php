@@ -38,43 +38,45 @@ jobs:
         uses: ramsey/composer-install@v3
 
       - name: Get current version
+        id: old
         run: |
           current_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
           echo "Current version: $current_version"
-          echo "OLD_VERSION=$current_version" >> $GITHUB_ENV
+          echo "version=$current_version" >> $GITHUB_OUTPUT
 
       - name: Increment version
+        id: new
         run: |
-          new_version=$(bin/version incr ${{ env.OLD_VERSION }} -p ${{ github.event.inputs.part }})
+          new_version=$(bin/version incr ${{ steps.old.outputs.version }} -p ${{ github.event.inputs.part }})
           echo "New version: $new_version"
-          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+          echo "version=$new_version" >> $GITHUB_OUTPUT
 
       - name: Update version in files
         run: |
-          sed -i "s/const VERSION = '.*';/const VERSION = '${{ env.NEW_VERSION }}';/" app/Commander.php
+          sed -i "s/const VERSION = '.*';/const VERSION = '${{ steps.new.outputs.version }}';/" app/Commander.php
 
       - name: Verify version update
         run: |
           update_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
 
-          if [ "$update_version" != "${{ env.NEW_VERSION }}" ]; then
-            echo "Version update failed. Expected ${{ env.NEW_VERSION }}, but got $update_version"
+          if [ "$update_version" != "${{ steps.new.outputs.version }}" ]; then
+            echo "Version update failed. Expected ${{ steps.new.outputs.version }}, but got $update_version"
             exit 1
           else
-            echo "Version updated successfully from ${{ env.OLD_VERSION }} to $update_version"
+            echo "Version updated successfully from ${{ steps.old.outputs.version }} to $update_version"
           fi
 
       - name: Create a Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           branch-suffix: short-commit-hash
-          commit-message: "Bump version to ${{ env.NEW_VERSION }}"
-          branch: release/v${{ env.NEW_VERSION }}
-          title: "Bump version to ${{ env.NEW_VERSION }}"
+          commit-message: "Bump version to ${{ steps.new.outputs.version }}"
+          branch: release/v${{ steps.new.outputs.version }}
+          title: "Bump version to ${{ steps.new.outputs.version }}"
           add-paths: |
             app/*.php
           body: |
-            This PR updates the version of the application from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}.
+            This PR updates the version of the application from ${{ steps.old.outputs.version }} to ${{ steps.new.outputs.version }}.
             Please review the changes and merge if everything looks good.
           labels: |
             release

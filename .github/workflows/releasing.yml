@@ -1,0 +1,37 @@
+name: Releasing
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  create-draft:
+    if: >
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'release/v')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Extract
+        id: extract
+        run: |
+          branch="${{ github.event.pull_request.head.ref }}"
+          echo "Branch name: $branch"
+          tag_with_hash="${branch#release/}"
+          version="${tag_with_hash%%-*}"
+
+          echo "Extracted version: $version"
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Create Draft GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.extract.outputs.version }}
+          tag_name: ${{ steps.extract.outputs.version }}
+          draft: true
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
