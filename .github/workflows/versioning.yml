@@ -20,10 +20,10 @@ jobs:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
-  update:
+  bump:
     needs: ci
     runs-on: ubuntu-latest
-    name: Update Version
+    name: Bump Version
 
     steps:
       - name: Checkout code

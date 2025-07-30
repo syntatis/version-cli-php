@@ -8,11 +8,12 @@ on:
       - main
 
 jobs:
-  create-draft:
+  draft:
     if: >
       github.event.pull_request.merged == true &&
       startsWith(github.event.pull_request.head.ref, 'release/v')
     runs-on: ubuntu-latest
+    name: Create a Release Draft
 
     steps:
       - name: Extract
