@@ -1,4 +1,4 @@
-name: Releasing
+name: Release Draft
 
 on:
   pull_request:
