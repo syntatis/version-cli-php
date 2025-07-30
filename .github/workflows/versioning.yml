@@ -45,7 +45,7 @@ jobs:
 
       - name: Increment version
         run: |
-          new_version=$(bin/version incr {{ env.CURRENT_VERSION }} -p ${{ github.event.inputs.part }})
+          new_version=$(bin/version incr ${{ env.CURRENT_VERSION }} -p ${{ github.event.inputs.part }})
           echo "New version: $new_version"
           echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
