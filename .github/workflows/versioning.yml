@@ -41,11 +41,11 @@ jobs:
         run: |
           current_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
           echo "Current version: $current_version"
-          echo "CURRENT_VERSION=$current_version" >> $GITHUB_ENV
+          echo "OLD_VERSION=$current_version" >> $GITHUB_ENV
 
       - name: Increment version
         run: |
-          new_version=$(bin/version incr ${{ env.CURRENT_VERSION }} -p ${{ github.event.inputs.part }})
+          new_version=$(bin/version incr ${{ env.OLD_VERSION }} -p ${{ github.event.inputs.part }})
           echo "New version: $new_version"
           echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
 
@@ -55,13 +55,13 @@ jobs:
 
       - name: Verify version update
         run: |
-          current_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
+          update_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
 
-          if [ "$current_version" = "${{ env.NEW_VERSION }}" ]; then
-            echo "Version update failed. Expected ${{ env.NEW_VERSION }}, but got $current_version"
+          if [ "$update_version" != "${{ env.NEW_VERSION }}" ]; then
+            echo "Version update failed. Expected ${{ env.NEW_VERSION }}, but got $update_version"
             exit 1
           else
-            echo "Version updated successfully from ${{ env.CURRENT_VERSION }} to ${{ env.NEW_VERSION }}"
+            echo "Version updated successfully from ${{ env.OLD_VERSION }} to $update_version"
           fi
 
       - name: Create a Pull Request
@@ -74,7 +74,7 @@ jobs:
           add-paths: |
             app/*.php
           body: |
-            This PR updates the version of the application from ${{ env.CURRENT_VERSION }} to ${{ env.NEW_VERSION }}.
+            This PR updates the version of the application from ${{ env.OLD_VERSION }} to ${{ env.NEW_VERSION }}.
             Please review the changes and merge if everything looks good.
           labels: |
             release
