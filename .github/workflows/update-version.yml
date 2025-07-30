@@ -1,0 +1,82 @@
+name: Update Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      part:
+        type: choice
+        description: "Select the version part to update"
+        default: patch
+        required: true
+        options:
+          - patch
+          - minor
+          - major
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  update-version:
+    runs-on: ubuntu-latest
+    name: Update Version
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+
+      - name: Install PHP dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Get current version
+        run: |
+          current_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
+          echo "Current version: $current_version"
+          echo "CURRENT_VERSION=$current_version" >> $GITHUB_ENV
+
+      - name: Increment version
+        run: |
+          new_version=$(bin/version incr {{ env.CURRENT_VERSION }} -p ${{ github.event.inputs.part }})
+          echo "New version: $new_version"
+          echo "NEW_VERSION=$new_version" >> $GITHUB_ENV
+
+      - name: Update version in files
+        run: |
+          sed -i "s/const VERSION = '.*';/const VERSION = '${{ env.NEW_VERSION }}';/" app/Commander.php
+
+      - name: Verify version update
+        run: |
+          current_version=$(php -r "require 'vendor/autoload.php'; echo \Syntatis\Version\CLI\Commander::VERSION;")
+
+          if [ "$current_version" = "${{ env.NEW_VERSION }}" ]; then
+            echo "Version update failed. Expected ${{ env.NEW_VERSION }}, but got $current_version"
+            exit 1
+          else
+            echo "Version updated successfully from ${{ env.CURRENT_VERSION }} to ${{ env.NEW_VERSION }}"
+          fi
+
+      - name: Create a Pull Request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch-suffix: short-commit-hash
+          commit-message: "Bump version to ${{ env.NEW_VERSION }}"
+          branch: release/v${{ env.NEW_VERSION }}
+          title: "Bump version to ${{ env.NEW_VERSION }}"
+          add-paths: |
+            app/*.php
+          body: |
+            This PR updates the version of the application from ${{ env.CURRENT_VERSION }} to ${{ env.NEW_VERSION }}.
+            Please review the changes and merge if everything looks good.
+          labels: |
+            release
+            help-wanted
