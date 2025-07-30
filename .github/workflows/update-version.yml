@@ -13,10 +13,6 @@ on:
           - minor
           - major
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   ci:
     name: CI
