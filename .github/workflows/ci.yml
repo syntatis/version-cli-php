@@ -80,7 +80,7 @@ jobs:
       max-parallel: 3
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        stability: [prefer-lowest, prefer-stable]
+        stability: [lowest, stable]
         machine: [windows-latest, ubuntu-latest]
 
     steps:
@@ -94,6 +94,8 @@ jobs:
 
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: ${{ matrix.stability }}
 
       - name: Install bashunit
         run: |
