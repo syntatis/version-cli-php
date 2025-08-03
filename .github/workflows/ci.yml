@@ -43,7 +43,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: "7.4"
 
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
@@ -62,7 +62,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: "7.4"
 
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
@@ -80,8 +80,8 @@ jobs:
       max-parallel: 3
       matrix:
         php-version: ["7.4", "8.0", "8.1", "8.2", "8.3", "8.4"]
-        stability: [lowest, stable]
-        machine: [windows-latest, ubuntu-latest]
+        dependencies: [lowest, highest]
+        os: [windows-latest, ubuntu-latest]
 
     steps:
       - name: Checkout code
@@ -95,7 +95,7 @@ jobs:
       - name: Install PHP dependencies
         uses: ramsey/composer-install@v3
         with:
-          dependency-versions: ${{ matrix.stability }}
+          dependency-versions: ${{ matrix.dependencies }}
 
       - name: Install bashunit
         run: |
@@ -107,5 +107,5 @@ jobs:
         run: composer test
 
       - name: Run bashunit test
-        if: matrix.machine != 'windows-latest'
+        if: matrix.os != 'windows-latest'
         run: ./lib/bashunit ./tests/bashunit/*.sh
