@@ -14,8 +14,10 @@ use Syntatis\Version\CLI\Exceptions\InvalidArgumentType;
 use Throwable;
 use Version\Version;
 
+use function is_numeric;
 use function is_string;
 use function sprintf;
+use function trim;
 
 final class IncrementCommand extends Command
 {
@@ -116,9 +118,14 @@ final class IncrementCommand extends Command
 				}
 
 				$identifier = $currentPrerelease->getIdentifiers();
-				$preTag = $identifier[0];
-				$preVersion = (int) ($identifier[1] ?? 0) + 1;
-				$version = $version->withPreRelease(sprintf('%s.%d', $preTag, $preVersion));
+				$preTag = isset($identifier[0]) && is_string($identifier[0]) ? trim($identifier[0]) : null;
+
+				if ($preTag === null || $preTag === '') {
+					throw new InvalidArgumentException('Unable to determine the prerelease tag for incrementing.');
+				}
+
+				$preVersion = isset($identifier[1]) && is_numeric($identifier[1]) ? (int) $identifier[1] : 0;
+				$version = $version->withPreRelease(sprintf('%s.%d', $preTag, $preVersion + 1));
 
 				break;
 
