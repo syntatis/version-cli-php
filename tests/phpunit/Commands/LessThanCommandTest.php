@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Commands;
 
+use Syntatis\Tests\Commands\CommandTestCase;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Syntatis\Version\CLI\Commander;
 
 use function sprintf;
 
-class LessThanCommandTest extends TestCase
+class LessThanCommandTest extends CommandTestCase
 {
 	private Commander $commander;
 	private CommandTester $tester;
@@ -30,7 +31,7 @@ class LessThanCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			$expect,
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
