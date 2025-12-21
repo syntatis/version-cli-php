@@ -17,7 +17,7 @@ function test_increment_major() {
 }
 
 # @data_provider data_increment_with_pre_release
-function test_increment_with_pre_release() {
+function test_increment_with_prerelease() {
 	ver=$(bin/version increment $1 --pre alpha);
 	assert_equals $ver $2;
 }
@@ -32,6 +32,16 @@ function test_increment_with_build() {
 function test_increment_with_pre_release_and_build() {
 	ver=$(bin/version increment $1 --build 123 --pre alpha);
 	assert_equals $ver $2;
+}
+
+# @data_provider data_increment_prerelease
+function test_increment_with_prerelease_and_build() {
+	ver=$(bin/version increment $1 --part prerelease);
+	assert_equals $ver $2;
+}
+
+function data_increment_prerelease() {
+	echo "1.0.0-beta" "1.0.0-beta.1";
 }
 
 function data_increment_patch() {

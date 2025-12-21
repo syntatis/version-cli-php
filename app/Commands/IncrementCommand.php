@@ -28,7 +28,7 @@ final class IncrementCommand extends Command
 		$this->setDescription('Increment a version');
 		$this->setAliases(['incr']);
 		$this->addArgument('version', InputArgument::REQUIRED, 'Version to increment');
-		$this->addOption('part', 'p', InputArgument::OPTIONAL, 'Part to increment (major, minor, patch)', 'patch');
+		$this->addOption('part', 'p', InputArgument::OPTIONAL, 'Part to increment (major, minor, patch, and prerelease)', 'patch');
 		$this->addOption('build', 'b', InputArgument::OPTIONAL, 'Build metadata to append to the version');
 		$this->addOption('pre', null, InputArgument::OPTIONAL, 'Pre-release identifier to append to the version');
 		$this->setHelp(<<<'HELP'
@@ -104,11 +104,29 @@ final class IncrementCommand extends Command
 				$version = $version->incrementPatch();
 				break;
 
+			case 'prerelease':
+				$currentPrerelease = $version->getPreRelease();
+
+				if ($currentPrerelease === null) {
+					throw new InvalidArgumentException('Unable to increment prerelease on a version without a prerelease tag.');
+				}
+
+				if ($pre !== null && is_string($pre) && $pre !== '') {
+					throw new InvalidArgumentException('Specifying a prerelease tag when incrementing the prerelease part is not allowed.');
+				}
+
+				$identifier = $currentPrerelease->getIdentifiers();
+				$preTag = $identifier[0];
+				$preVersion = (int) ($identifier[1] ?? 0) + 1;
+				$version = $version->withPreRelease(sprintf('%s.%d', $preTag, $preVersion));
+
+				break;
+
 			default:
-				throw new InvalidArgumentException(sprintf("Invalid part '%s' provided. Expected 'major', 'minor', or 'patch'.", $part));
+				throw new InvalidArgumentException(sprintf("Invalid part '%s' provided. Expected 'major', 'minor', 'patch', or 'prerelease'.", $part));
 		}
 
-		if (is_string($pre) && $pre !== '') {
+		if ($part !== 'prerelease' && is_string($pre) && $pre !== '') {
 			$version = $version->withPreRelease($pre);
 		}
 

@@ -84,6 +84,45 @@ class IncrementCommandTest extends TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataIncrementPrerelease
+	 */
+	public function testIncrementPrerelease(string $version, string $expect): void
+	{
+		$this->tester->execute(['version' => $version, '--part' => 'prerelease']);
+
+		self::assertStringContainsString(
+			$expect,
+			$this->tester->getDisplay(),
+		);
+	}
+
+	public static function dataIncrementPrerelease(): iterable
+	{
+		yield ['1.0.0-beta', '1.0.0-beta.1'];
+		yield ['1.0.0-alpha.1', '1.0.0-alpha.2'];
+	}
+
+	public function testIncrementPrereleaseWithPreTag(): void
+	{
+		$this->tester->execute(['version' => '1.0.0-beta', '--part' => 'prerelease', '--pre' => 'rc']);
+
+		self::assertStringContainsString(
+			"[ERROR] Specifying a prerelease tag when incrementing the prerelease part is not allowed.",
+			$this->tester->getDisplay(),
+		);
+	}
+
+	public function testIncrementPrereleaseWithoutReleaseTag(): void
+	{
+		$this->tester->execute(['version' => '1.0.0', '--part' => 'prerelease']);
+
+		self::assertStringContainsString(
+			"[ERROR] Unable to increment prerelease on a version without a prerelease tag.",
+			$this->tester->getDisplay(),
+		);
+	}
+
 	public static function dataInvalidVersionArgument(): iterable
 	{
 		yield ['v'];
