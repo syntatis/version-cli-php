@@ -23,7 +23,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Syntatis\\Tests\\": "tests/"
+			"Syntatis\\Tests\\": ["tests/", "tests/phpunit/"]
 		}
 	},
 	"require": {

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Commands;
 
+use Syntatis\Tests\Commands\CommandTestCase;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Syntatis\Version\CLI\Commander;
 
 use function sprintf;
 
-class ValidateCommandTest extends TestCase
+class ValidateCommandTest extends CommandTestCase
 {
 	private Commander $commander;
 	private CommandTester $tester;
@@ -30,7 +31,7 @@ class ValidateCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			sprintf("[ERROR] Version string '%s' is not valid and cannot be parsed", $version),
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -41,7 +42,7 @@ class ValidateCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			sprintf("[OK] Version string '%s' is valid and can be parsed", $version),
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Syntatis\Tests\Commands;
 
+use Syntatis\Tests\Commands\CommandTestCase;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 use Syntatis\Version\CLI\Commander;
 
 use function sprintf;
 
-class IncrementCommandTest extends TestCase
+class IncrementCommandTest extends CommandTestCase
 {
 	private Commander $commander;
 	private CommandTester $tester;
@@ -30,7 +31,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			sprintf("[ERROR] Version string '%s' is not valid and cannot be parsed", $version),
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -40,7 +41,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			'1.0.1',
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -50,7 +51,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			'1.1.0',
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -60,7 +61,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			'2.0.0',
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -70,7 +71,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			'1.0.1+123',
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -80,7 +81,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			'1.0.1-beta',
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -93,7 +94,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			$expect,
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -109,7 +110,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			"[ERROR] Specifying a prerelease tag when incrementing the prerelease part is not allowed.",
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
@@ -119,7 +120,7 @@ class IncrementCommandTest extends TestCase
 
 		self::assertStringContainsString(
 			"[ERROR] Unable to increment prerelease on a version without a prerelease tag.",
-			$this->tester->getDisplay(),
+			self::normalizeOutput($this->tester->getDisplay()),
 		);
 	}
 
