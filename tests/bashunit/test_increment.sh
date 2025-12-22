@@ -47,16 +47,19 @@ function data_increment_prerelease() {
 function data_increment_patch() {
 	echo "0.0.0" "0.0.1";
 	echo "1.0.0" "1.0.1";
+	echo "1.0.0-beta" "1.0.1";
 }
 
 function data_increment_minor() {
 	echo "0.0.0" "0.1.0";
 	echo "1.0.0" "1.1.0";
+	echo "1.0.0-alpha" "1.1.0";
 }
 
 function data_increment_major() {
 	echo "0.0.0" "1.0.0";
 	echo "1.0.0" "2.0.0";
+	echo "1.0.0-rc" "2.0.0";
 }
 
 function data_increment_with_pre_release() {
